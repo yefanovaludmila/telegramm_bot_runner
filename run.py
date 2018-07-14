@@ -1,6 +1,4 @@
 import time
-import datetime
-import configparser #импорт данных из config.ini
 import argparse
 import logging
 
