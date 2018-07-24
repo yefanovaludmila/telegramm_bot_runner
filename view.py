@@ -71,14 +71,14 @@ class View:
                                           f'{View.date_format(self, value - j[ind])}')
 
     def best_time(self, run_time, chat_id):
-        if(run_time[-1] == min(run_time)):
+        if run_time[-1] == min(run_time):
             self.bot.sendMessage(chat_id, 'It\'s your best time! Congrats!!!')
         else:
             return
 
 
     def calculate_run_time(self, chat_id):
-        if(self.d_start.get("Start", 0) > 0):
+        if self.d_start.get("Start", 0) > 0:
             run_time = View.get_value_runner(self, 'Run_time', 0)
             print(run_time)
             self.bot.sendMessage(chat_id, f'Run time is: {View.date_format(self, run_time[-1])}',
@@ -100,28 +100,13 @@ class View:
     def root_handle(self, msg):
         print(msg)
         View.test_type(self, msg)
-        if(msg['text'] == "Start"):
+        if msg['text'] == "Start":
             View.text_start(self, msg['text'], msg['date'])
-        elif(msg['text'] == "Circle"):
+        elif msg['text'] == "Circle":
             View.text_circle(self, msg['text'], msg['date'], msg['chat']['id'])
-        elif(msg['text'] == "Stop"):
+        elif msg['text'] == "Stop":
             View.text_stop(self, msg['text'], msg['date'], msg['chat']['first_name'])
             View.calculate_run_time(self, msg['chat']['id'])
             View.circle_time(self, msg['chat']['id'])
         else:
             View.unresolved_choice(self, msg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
