@@ -95,11 +95,11 @@ class View:
     def root_handle(self, msg):
         print(msg)
         View.test_type(self, msg)
-        if (msg['text'] == "Start"):
-            View.text_start(self,msg['text'], msg['date'])
-        elif (msg['text'] == "Circle"):
+        if(msg['text'] == "Start"):
+            View.text_start(self, msg['text'], msg['date'])
+        elif(msg['text'] == "Circle"):
             View.text_circle(self, msg['text'], msg['date'], msg['chat']['id'])
-        elif (msg['text'] == "Stop"):
+        elif(msg['text'] == "Stop"):
             View.text_stop(self, msg['text'], msg['date'], msg['chat']['first_name'])
             View.calculate_run_time(self, msg['chat']['id'])
             View.circle_time(self, msg['chat']['id'])
