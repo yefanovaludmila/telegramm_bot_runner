@@ -29,7 +29,7 @@ class View:
         self.d_circle.append(date)
 
     def text_circle(self, date, chat_id):
-        if (self.d_start.get("Start", 0) > 0):
+        if(self.d_start.get("Start", 0) > 0):
             self.d_circle.append(date)
         else:
             self.bot.sendMessage(chat_id, f"first press the \'Start\' button", reply_markup=self.markup)
@@ -67,14 +67,14 @@ class View:
             self.bot.sendMessage(chat_id, f'{ind+1} circle: {View.date_format(self, value - j[ind])}')
 
     def best_time(self, run_time, chat_id):
-        if run_time[-1] == min(run_time):
+        if(run_time[-1] == min(run_time)):
             self.bot.sendMessage(chat_id, 'It\'s your best time! Congrats!!!')
         else:
             return
 
 
     def calculate_run_time(self, chat_id):
-        if (self.d_start.get("Start", 0) > 0):
+        if(self.d_start.get("Start", 0) > 0):
             run_time = View.get_value_runner(self, 'Run_time', 0)
             print(run_time)
             self.bot.sendMessage(chat_id, f'Run time is: {View.date_format(self, run_time[-1])}',
