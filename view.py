@@ -30,7 +30,7 @@ class View:
         self.d_circle.append(date)
 
     def text_circle(self, date, chat_id):
-        if(self.d_start.get("Start", 0) > 0):
+        if self.d_start.get("Start", 0) > 0:
             self.d_circle.append(date)
         else:
             self.bot.sendMessage(chat_id, f"first press the \'Start\' button",
@@ -40,7 +40,8 @@ class View:
         self.d_stop = View.start_stop_run(self, txt, date)
         self.d_circle.append(date)
         self.d_runner.append([self.d_start, {"Circle": self.d_circle}, self.d_stop,
-                              {"Run_time":self.d_stop.get("Stop", 0) - self.d_start.get("Start", 0)},
+                              {"Run_time":self.d_stop.get("Stop", 0) -
+                                          self.d_start.get("Start", 0)},
                               {"User": first_name}])
         print(self.d_runner)
 
@@ -66,7 +67,8 @@ class View:
     def circle_time(self, chat_id):
         j = View.get_value_runner(self, 'Circle', 1)
         for ind, value  in enumerate(j[1::]):
-            self.bot.sendMessage(chat_id, f'{ind+1} circle: {View.date_format(self, value - j[ind])}')
+            self.bot.sendMessage(chat_id, f'{ind+1} circle: '
+                                          f'{View.date_format(self, value - j[ind])}')
 
     def best_time(self, run_time, chat_id):
         if(run_time[-1] == min(run_time)):
@@ -85,7 +87,8 @@ class View:
             self.bot.sendMessage(chat_id, f'Count of circles: {len(self.d_circle)-1}')
             View.nul_values(self)
         else:
-            self.bot.sendMessage(chat_id, f"first press the \'Start\' button", reply_markup=self.markup)
+            self.bot.sendMessage(chat_id, f"first press the \'Start\' button",
+                                 reply_markup=self.markup)
 
     def test_type(self, msg):
         try:
