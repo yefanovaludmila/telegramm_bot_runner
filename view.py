@@ -37,7 +37,9 @@ class View:
     def text_stop(self, txt, date, first_name):
         self.d_stop = View.start_stop_run(self, txt, date)
         self.d_circle.append(date)
-        self.d_runner.append([self.d_start, {"Circle": self.d_circle}, self.d_stop, {"Run_time":self.d_stop.get("Stop", 0) - self.d_start.get("Start", 0)}, {"User": first_name}])
+        self.d_runner.append([self.d_start, {"Circle": self.d_circle}, self.d_stop,
+                              {"Run_time":self.d_stop.get("Stop", 0) - self.d_start.get("Start", 0)},
+                              {"User": first_name}])
         print(self.d_runner)
 
     def date_format(self, date):
@@ -49,7 +51,7 @@ class View:
             lst = []
             for keys in self.d_runner:
                 for k in keys:
-                    for i,j in k.items():
+                    for i, j in k.items():
                         if i == value:
                             lst.append(j)
             return lst
@@ -73,9 +75,10 @@ class View:
 
     def calculate_run_time(self, chat_id):
         if (self.d_start.get("Start", 0) > 0):
-            run_time = View.get_value_runner(self,'Run_time',0)
+            run_time = View.get_value_runner(self, 'Run_time', 0)
             print(run_time)
-            self.bot.sendMessage(chat_id, f'Run time is: {View.date_format(self, run_time[-1])}', reply_markup=self.markup)
+            self.bot.sendMessage(chat_id, f'Run time is: {View.date_format(self, run_time[-1])}',
+                                 reply_markup=self.markup)
             View.best_time(self, run_time, chat_id)
             self.bot.sendMessage(chat_id, f'Count of circles: {len(self.d_circle)-1}')
             View.nul_values(self)
@@ -99,7 +102,7 @@ class View:
         elif (msg['text'] == "Stop"):
             View.text_stop(self, msg['text'], msg['date'], msg['chat']['first_name'])
             View.calculate_run_time(self, msg['chat']['id'])
-            View.circle_time(self,msg['chat']['id'])
+            View.circle_time(self, msg['chat']['id'])
         else:
             View.unresolved_choice(self, msg)
 
