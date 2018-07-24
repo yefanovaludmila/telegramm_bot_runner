@@ -1,5 +1,5 @@
-from telepot.namedtuple import ReplyKeyboardMarkup
 import time
+from telepot.namedtuple import ReplyKeyboardMarkup
 
 class View:
     d_stop = {}
@@ -49,8 +49,8 @@ class View:
         new_date = time.strftime('%H:%M:%S', time.gmtime(date))
         return new_date
 
-    def get_value_runner(self, value, i):
-        if i == 0:
+    def get_value_runner(self, value, count):
+        if count == 0:
             lst = []
             for keys in self.d_runner:
                 for k in keys:
@@ -59,7 +59,7 @@ class View:
                             lst.append(j)
             return lst
         else:
-            for k in self.d_runner[-i]:
+            for k in self.d_runner[-count]:
                 for i, j in k.items():
                     if i == value:
                         return j
@@ -103,7 +103,7 @@ class View:
         if msg['text'] == "Start":
             View.text_start(self, msg['text'], msg['date'])
         elif msg['text'] == "Circle":
-            View.text_circle(self, msg['text'], msg['date'], msg['chat']['id'])
+            View.text_circle(self, msg['date'], msg['chat']['id'])
         elif msg['text'] == "Stop":
             View.text_stop(self, msg['text'], msg['date'], msg['chat']['first_name'])
             View.calculate_run_time(self, msg['chat']['id'])
