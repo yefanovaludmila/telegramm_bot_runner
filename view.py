@@ -20,7 +20,8 @@ class View:
         return d_start_stop
 
     def unresolved_choice(self, msg):
-        self.bot.sendMessage(msg['chat']['id'], msg['chat']['first_name'] + ', please choose button Start or Stop',
+        self.bot.sendMessage(msg['chat']['id'], msg['chat']['first_name'] +
+                             ', please choose button Start or Stop',
                              reply_markup=self.markup)
 
     def text_start(self, txt, date):
@@ -32,7 +33,8 @@ class View:
         if(self.d_start.get("Start", 0) > 0):
             self.d_circle.append(date)
         else:
-            self.bot.sendMessage(chat_id, f"first press the \'Start\' button", reply_markup=self.markup)
+            self.bot.sendMessage(chat_id, f"first press the \'Start\' button",
+                                 reply_markup=self.markup)
 
     def text_stop(self, txt, date, first_name):
         self.d_stop = View.start_stop_run(self, txt, date)
