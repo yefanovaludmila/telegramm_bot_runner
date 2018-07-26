@@ -15,9 +15,7 @@ class View:
         self.bot = bot
 
     def nul_values(self):
-        '''
-        set null values
-        '''
+        '''        set null values        '''
         self.d_stop = {}
         self.d_start = {}
         self.d_circle = []
@@ -29,25 +27,19 @@ class View:
 
 
     def unresolved_choice(self, msg):
-        '''
-       massage if user didn't enter text
-       '''
+        '''       massage if user didn't enter text       '''
         self.bot.sendMessage(msg['chat']['id'], msg['chat']['first_name'] +
                              ', please choose button Start or Stop',
                              reply_markup=self.markup)
 
     def text_start(self, txt, date):
-        '''
-        if user wrote 'Sart'
-        '''
+        '''        if user wrote 'Sart'        '''
         self.d_start = View.start_stop_run(txt, date)
         self.d_circle = []
         self.d_circle.append(date)
 
     def text_circle(self, date, chat_id):
-        '''
-        if user wrote 'Circle'
-        '''
+        '''        if user wrote 'Circle'        '''
         if self.d_start.get("Start", 0) > 0:
             self.d_circle.append(date)
         else:
@@ -55,9 +47,7 @@ class View:
                                  reply_markup=self.markup)
 
     def text_stop(self, txt, date, first_name):
-        '''
-        if user wrote 'Stop'
-        '''
+        '''        if user wrote 'Stop'        '''
         self.d_stop = View.start_stop_run(txt, date)
         self.d_circle.append(date)
         self.d_runner.append([self.d_start, {"Circle": self.d_circle}, self.d_stop,
@@ -67,16 +57,12 @@ class View:
         print(self.d_runner)
 
     def date_format(date):
-        '''
-        verification date format
-        '''
+        '''        verification date format        '''
         new_date = time.strftime('%H:%M:%S', time.gmtime(date))
         return new_date
 
     def get_value_runner(self, value, count):
-        '''
-        get run dictionary
-        '''
+        '''        get run dictionary        '''
         if count == 0:
             lst = []
             for keys in self.d_runner:
@@ -92,27 +78,21 @@ class View:
                         return j
 
     def circle_time(self, chat_id):
-        '''
-        calculate circle time
-        '''
+        '''        calculate circle time        '''
         j = View.get_value_runner(self, 'Circle', 1)
         for ind, value  in enumerate(j[1::]):
             self.bot.sendMessage(chat_id, f'{ind+1} circle: '
                                           f'{View.date_format(value - j[ind])}')
 
     def best_time(self, run_time, chat_id):
-        '''
-        calculate best time
-        '''
+        '''        calculate best time        '''
         if run_time[-1] == min(run_time):
             self.bot.sendMessage(chat_id, 'It\'s your best time! Congrats!!!')
         else:
             return
 
     def calculate_run_time(self, chat_id):
-        '''
-        calculate run time
-        '''
+        '''        calculate run time        '''
         if self.d_start.get("Start", 0) > 0:
             run_time = View.get_value_runner(self, 'Run_time', 0)
             print(run_time)
@@ -126,9 +106,7 @@ class View:
                                  reply_markup=self.markup)
 
     def test_type(self, msg):
-        '''
-        testing types of massages.
-        '''
+        '''        testing types of massages.        '''
         try:
             msg.get('text')
         except KeyError as error:
@@ -136,9 +114,7 @@ class View:
             return error
 
     def root_handle(self, msg):
-        '''
-        main function.
-        '''
+        '''        main function.        '''
         print(msg)
         View.test_type(self, msg)
         if msg['text'] == "Start":
