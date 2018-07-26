@@ -1,13 +1,9 @@
-'''
-Project telegramm bot for runners
-'''
+''' Project telegramm bot for runners '''
 import time
 from telepot.namedtuple import ReplyKeyboardMarkup
 
 class View:
-    '''
-    main class View
-    '''
+    ''' main class View '''
     d_stop = {}
     d_start = {}
     d_circle = []
@@ -15,9 +11,7 @@ class View:
     markup = ReplyKeyboardMarkup(keyboard=[['Start', 'Circle'], ['Stop']])
 
     def __init__(self, bot):
-        '''
-        initialization View
-        '''
+        '''        initialization View        '''
         self.bot = bot
 
     def nul_values(self):
@@ -29,9 +23,7 @@ class View:
         self.d_circle = []
 
     def start_stop_run(text, date):
-        '''
-        add to the dictionary
-        '''
+        '''        add to the dictionary        '''
         d_start_stop = {text: date}
         return d_start_stop
 
