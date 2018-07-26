@@ -28,7 +28,7 @@ class View:
         self.d_start = {}
         self.d_circle = []
 
-    def start_stop_run(self, text, date):
+    def start_stop_run(text, date):
         '''
         add to the dictionary
         '''
@@ -48,7 +48,7 @@ class View:
         '''
         if user wrote 'Sart'
         '''
-        self.d_start = View.start_stop_run(self, txt, date)
+        self.d_start = View.start_stop_run(txt, date)
         self.d_circle = []
         self.d_circle.append(date)
 
@@ -66,7 +66,7 @@ class View:
         '''
         if user wrote 'Stop'
         '''
-        self.d_stop = View.start_stop_run(self, txt, date)
+        self.d_stop = View.start_stop_run(txt, date)
         self.d_circle.append(date)
         self.d_runner.append([self.d_start, {"Circle": self.d_circle}, self.d_stop,
                               {"Run_time":self.d_stop.get("Stop", 0) -
@@ -138,7 +138,7 @@ class View:
         testing types of massages.
         '''
         try:
-            txt = msg['text']
+            msg.get('text')
         except KeyError as error:
             self.bot.sendMessage(msg['chat']['id'], 'Choose the button')
             return error
