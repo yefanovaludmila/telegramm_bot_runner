@@ -4,67 +4,68 @@ Project telegramm bot for runners
 import time
 from telepot.namedtuple import ReplyKeyboardMarkup
 
-'''
-main class View
-'''
 class View:
+    '''
+    main class View
+    '''
     d_stop = {}
     d_start = {}
     d_circle = []
     d_runner = []
     markup = ReplyKeyboardMarkup(keyboard=[['Start', 'Circle'], ['Stop']])
 
-    '''
-    initialization View
-    '''
     def __init__(self, bot):
+        '''
+        initialization View
+        '''
         self.bot = bot
 
-    '''
-    set null values
-    '''
     def nul_values(self):
+        '''
+        set null values
+        '''
         self.d_stop = {}
         self.d_start = {}
         self.d_circle = []
 
-    '''
-    add to the dictionary
-    '''
     def start_stop_run(self, text, date):
+        '''
+        add to the dictionary
+        '''
         d_start_stop = {text: date}
         return d_start_stop
 
-    '''
-    massage if user didn't enter text
-    '''
+
     def unresolved_choice(self, msg):
+        '''
+       massage if user didn't enter text
+       '''
         self.bot.sendMessage(msg['chat']['id'], msg['chat']['first_name'] +
                              ', please choose button Start or Stop',
                              reply_markup=self.markup)
 
-    '''
-    if user wrote 'Sart'
-    '''
     def text_start(self, txt, date):
+        '''
+        if user wrote 'Sart'
+        '''
         self.d_start = View.start_stop_run(self, txt, date)
         self.d_circle = []
         self.d_circle.append(date)
 
-    '''
-    if user wrote 'Circle'
-    '''
     def text_circle(self, date, chat_id):
+        '''
+        if user wrote 'Circle'
+        '''
         if self.d_start.get("Start", 0) > 0:
             self.d_circle.append(date)
         else:
             self.bot.sendMessage(chat_id, f"first press the \'Start\' button",
                                  reply_markup=self.markup)
 
-    '''
-    if user wrote 'Stop'
-    '''
     def text_stop(self, txt, date, first_name):
+        '''
+        if user wrote 'Stop'
+        '''
         self.d_stop = View.start_stop_run(self, txt, date)
         self.d_circle.append(date)
         self.d_runner.append([self.d_start, {"Circle": self.d_circle}, self.d_stop,
@@ -73,17 +74,17 @@ class View:
                               {"User": first_name}])
         print(self.d_runner)
 
-    '''
-    verification date format
-    '''
     def date_format(date):
+        '''
+        verification date format
+        '''
         new_date = time.strftime('%H:%M:%S', time.gmtime(date))
         return new_date
 
-    '''
-    get run dictionary
-    '''
     def get_value_runner(self, value, count):
+        '''
+        get run dictionary
+        '''
         if count == 0:
             lst = []
             for keys in self.d_runner:
@@ -98,28 +99,28 @@ class View:
                     if i == value:
                         return j
 
-    '''
-    calculate circle time
-    '''
     def circle_time(self, chat_id):
+        '''
+        calculate circle time
+        '''
         j = View.get_value_runner(self, 'Circle', 1)
         for ind, value  in enumerate(j[1::]):
             self.bot.sendMessage(chat_id, f'{ind+1} circle: '
                                           f'{View.date_format(value - j[ind])}')
 
-    '''
-    calculate best time
-    '''
     def best_time(self, run_time, chat_id):
+        '''
+        calculate best time
+        '''
         if run_time[-1] == min(run_time):
             self.bot.sendMessage(chat_id, 'It\'s your best time! Congrats!!!')
         else:
             return
 
-    '''
-    calculate run time
-    '''
     def calculate_run_time(self, chat_id):
+        '''
+        calculate run time
+        '''
         if self.d_start.get("Start", 0) > 0:
             run_time = View.get_value_runner(self, 'Run_time', 0)
             print(run_time)
@@ -132,20 +133,20 @@ class View:
             self.bot.sendMessage(chat_id, f"first press the \'Start\' button",
                                  reply_markup=self.markup)
 
-    '''
-    testing types of massages.
-    '''
     def test_type(self, msg):
+        '''
+        testing types of massages.
+        '''
         try:
             txt = msg['text']
         except KeyError as error:
             self.bot.sendMessage(msg['chat']['id'], 'Choose the button')
             return error
 
-    '''
-    main function.
-    '''
     def root_handle(self, msg):
+        '''
+        main function.
+        '''
         print(msg)
         View.test_type(self, msg)
         if msg['text'] == "Start":
