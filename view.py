@@ -20,6 +20,7 @@ class View:
         self.d_start = {}
         self.d_circle = []
 
+    @staticmethod
     def start_stop_run(text, date):
         '''        add to the dictionary        '''
         d_start_stop = {text: date}
@@ -56,6 +57,7 @@ class View:
                               {"User": first_name}])
         print(self.d_runner)
 
+    @staticmethod
     def date_format(date):
         '''        verification date format        '''
         new_date = time.strftime('%H:%M:%S', time.gmtime(date))
@@ -71,11 +73,10 @@ class View:
                         if i == value:
                             lst.append(j)
             return lst
-        else:
-            for k in self.d_runner[-count]:
-                for i, j in k.items():
-                    if i == value:
-                        return j
+        for k in self.d_runner[-count]:
+            for i, j in k.items():
+                if i == value:
+                    return j
 
     def circle_time(self, chat_id):
         '''        calculate circle time        '''
@@ -109,6 +110,7 @@ class View:
         '''        testing types of massages.        '''
         try:
             msg.get('text')
+            return None
         except KeyError as error:
             self.bot.sendMessage(msg['chat']['id'], 'Choose the button')
             return error

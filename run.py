@@ -17,8 +17,6 @@ def setup_logger(logfile, level):
     ch = logging.StreamHandler()
     ch.setLevel(level)
 
-
-
 parser = argparse.ArgumentParser(description='Some initial bot.')
 parser.add_argument('--config',
                     type=str,
@@ -30,15 +28,11 @@ logger = logging.getLogger('telegramm_bot')
 
 uti = Utils(args.config)
 TOKEN = uti.get_token()
-# TOKEN = '415996818:AAFUiHtSM8Y7nkpSflHzfT9zPvpPxrk5jwk'
 
 bot = telepot.Bot(TOKEN)
 viwer = View(bot)
 
-
-
 MessageLoop(bot, viwer.root_handle).run_as_thread()
-# import logging
 print('I am ready to work ...')
 
 while 1:
