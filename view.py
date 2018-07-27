@@ -78,7 +78,7 @@ class View:
             return lst
         for k in self.d_runner[-count]:
             for i, j in k.items():
-                if i == value:
+                if i == value and type(j)==list:
                     return j
 
     def circle_time(self, chat_id):
