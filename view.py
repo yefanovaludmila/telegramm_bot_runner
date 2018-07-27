@@ -60,8 +60,12 @@ class View:
     @staticmethod
     def date_format(date):
         '''        verification date format        '''
-        return time.strftime('%H:%M:%S', time.gmtime(date))
-        
+        try:
+            new_date = time.strftime('%H:%M:%S', time.gmtime(date))
+            return new_date
+        except:
+            return 'it is not date format'
+
     def get_value_runner(self, value, count):
         '''        get run dictionary        '''
         if count == 0:
