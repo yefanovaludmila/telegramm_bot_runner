@@ -66,24 +66,26 @@ class View:
         except TypeError as error:
             return error
 
-    def get_value_runner(self, value, count):
+    def get_value_runner(self, value):
         '''        get run dictionary        '''
-        if count == 0:
-            lst = []
-            for keys in self.d_runner:
-                for k in keys:
-                    for i, j in k.items():
-                        if i == value:
-                            lst.append(j)
-            return lst
+        lst = []
+        for keys in self.d_runner:
+            for k in keys:
+                for i, j in k.items():
+                    if i == value:
+                        lst.append(j)
+        return lst
+
+    def get_value_runner_time(self, value, count):
+        '''        get run dictionary        '''
         for k in self.d_runner[-count]:
             for i, j in k.items():
-                if i == value and type(j)==list:
+                if i == value:
                     return j
 
     def circle_time(self, chat_id):
         '''        calculate circle time        '''
-        j = View.get_value_runner(self, 'Circle', 1)
+        j = View.get_value_runner_time(self, 'Circle', 1)
         for ind, value  in enumerate(j[1::]):
             self.bot.sendMessage(chat_id, f'{ind+1} circle: '
                                           f'{View.date_format(value - j[ind])}')
@@ -98,7 +100,7 @@ class View:
     def calculate_run_time(self, chat_id):
         '''        calculate run time        '''
         if self.d_start.get("Start", 0) > 0:
-            run_time = View.get_value_runner(self, 'Run_time', 0)
+            run_time = View.get_value_runner(self, 'Run_time')
             print(run_time)
             self.bot.sendMessage(chat_id, f'Run time is: {View.date_format(run_time[-1])}',
                                  reply_markup=self.markup)
