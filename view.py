@@ -63,8 +63,8 @@ class View:
         try:
             new_date = time.strftime('%H:%M:%S', time.gmtime(date))
             return new_date
-        except:
-            return 'it is not date format'
+        except TypeError as error:
+            return error
 
     def get_value_runner(self, value, count):
         '''        get run dictionary        '''
