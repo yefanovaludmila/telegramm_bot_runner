@@ -82,8 +82,6 @@ class View:
             for i, j in k.items():
                 if i == value:
                     return j
-                else:
-                    pass
         return None
 
     def circle_time(self, chat_id):
