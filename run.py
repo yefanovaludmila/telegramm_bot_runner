@@ -29,7 +29,7 @@ app = Flask(__name__)
 
 # uti = Utils(args.config)
 # TOKEN = uti.get_token()
-TOKEN = 'AAFUiHtSM8Y7nkpSflHzfT9zPvpPxrk5jwk'
+TOKEN = '415996818:AAFUiHtSM8Y7nkpSflHzfT9zPvpPxrk5jwk'
 bot = telepot.Bot(TOKEN)
 viwer = View(bot)
 
