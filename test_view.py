@@ -1,5 +1,5 @@
 import unittest
-from view import View
+from .view import View
 
 class TestUM(unittest.TestCase):
     def test_start_stop_run(self):
