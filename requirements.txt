@@ -29,6 +29,6 @@ telepot==12.7
 typed-ast==1.1.0
 urllib3==1.23
 utils==0.9.0
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 wrapt==1.10.11
 yarl==1.2.6
